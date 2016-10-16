@@ -44,8 +44,8 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var View = __webpack_require__(2);
-	var Game = __webpack_require__(1);
+	var View = __webpack_require__(1);
+	var Game = __webpack_require__(2);
 	
 	$(function () {
 	  // var canvas = document.getElementById("myCanvas");
@@ -57,17 +57,6 @@
 
 /***/ },
 /* 1 */
-/***/ function(module, exports) {
-
-	function Game () {
-	
-	}
-	
-	module.exports = Game;
-
-
-/***/ },
-/* 2 */
 /***/ function(module, exports) {
 
 	var View = function (game) {
@@ -90,9 +79,32 @@
 	  var time = 1000 + Math.random() * 3000;
 	  window.onkeydown = function (e) {
 	    if (e.keyCode >= 37 && e.keyCode <= 40) {
-	      console.log("false start!");
+	      var $falseStart = $('<h3>');
+	      $falseStart.text("False Start!");
+	
+	      var $mark = $('<img>');
+	      $mark.attr({
+	        src: "./images/x_mark.png",
+	        class: "mark"
+	      });
+	
+	      var $div = $('<div>');
+	      $div.attr('class', 'false-start')
+	      $div.append($mark);
+	      $div.append($falseStart);
+	      $('figure').append($div);
+	
+	      var $h3 = $('<h3>');
+	      $h3.text("Press space to try again");
+	      $('figure').append($h3);
+	
 	      window.clearTimeout(this.timeoutID);
-	      window.onkeydown = null;
+	
+	      window.onkeydown = function (e) {
+	        if (e.keyCode == 32) {
+	          this.clearScreen();
+	        }
+	      }.bind(this);
 	    }
 	  }.bind(this);
 	
@@ -139,7 +151,7 @@
 	      $('figure').append($div);
 	
 	      var $h3 = $('<h3>');
-	      $h3.text("Press space to try again")
+	      $h3.text("Press space to try again");
 	      $('figure').append($h3);
 	      window.onkeydown = function (e) {
 	        if (e.keyCode == 32) {
@@ -159,6 +171,17 @@
 	};
 	
 	module.exports = View;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	function Game () {
+	
+	}
+	
+	module.exports = Game;
 
 
 /***/ }
