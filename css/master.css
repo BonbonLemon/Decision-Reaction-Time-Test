@@ -1,10 +1,17 @@
 body {
   text-align: center;
+  font-family: sans-serif;
 }
 
-.reaction-test {
+h2 {
+  position: relative;
+  margin-top: -235px;
+}
+
+#myCanvas {
   width: 600px;
   height: 400px;
   border: thin solid black;
   margin: 0 auto;
+  background: #57142c;
 }
