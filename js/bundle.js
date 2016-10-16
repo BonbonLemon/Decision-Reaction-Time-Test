@@ -63,6 +63,37 @@
 	
 	}
 	
+	Game.prototype.timeReaction = function (numRotations) {
+	  var startTime = Date.now();
+	  window.onkeydown = function (e) {
+	    if (e.keyCode >= 37 && e.keyCode <= 40) {
+	      var endTime = Date.now();
+	      var reactionTime = endTime - startTime;
+	
+	      var markSRC
+	      if (e.keyCode - 37 == numRotations) {
+	        markSRC = "./images/check_mark.png";
+	      } else {
+	        markSRC = "./images/x_mark.png";
+	      }
+	      var $mark = $('<img>');
+	      $mark.attr({
+	        src: markSRC,
+	        class: "mark"
+	      });
+	
+	      var $div = $('<div>');
+	      $div.append($mark);
+	      var $timeText = $('<span>');
+	      $timeText.text(reactionTime + "ms");
+	      $div.append($timeText);
+	      $('figure').append($div);
+	
+	      window.onkeydown = null;
+	    }
+	  }
+	};
+	
 	module.exports = Game;
 
 
@@ -79,6 +110,7 @@
 	View.prototype.bindStart = function () {
 	  window.onkeydown = function (e) {
 	    if (e.keyCode == 32) {
+	      window.onkeydown = null;
 	      $('h2').remove();
 	      this.start();
 	    }
@@ -87,17 +119,28 @@
 	
 	View.prototype.start = function () {
 	  var time = 1000 + Math.random() * 3000;
+	  window.onkeydown = function (e) {
+	    if (e.keyCode >= 37 && e.keyCode <= 40) {
+	      console.log("false start!");
+	      window.clearTimeout(this.timeoutID);
+	      window.onkeydown = null;
+	    }
+	  }.bind(this);
 	
-	  setTimeout(function () {
+	  this.timeoutID = setTimeout(function () {
 	    var $pacman = $('<img>');
-	    $pacman.attr('src', './images/pacman.png');
+	    $pacman.attr({
+	      src: './images/pacman.png',
+	      class: "pacman"
+	    });
 	
-	    var num_rotations = Math.floor(Math.random() * 4);
-	    $pacman.css('transform', 'rotate(' + num_rotations * 90 + 'deg)')
+	    var numRotations = Math.floor(Math.random() * 4);
+	    $pacman.css('transform', 'rotate(' + numRotations * 90 + 'deg)')
 	
 	    $('figure').append($pacman);
-	    console.log(num_rotations);
-	  }, time);
+	
+	    this.game.timeReaction(numRotations);
+	  }.bind(this), time);
 	};
 	
 	module.exports = View;
