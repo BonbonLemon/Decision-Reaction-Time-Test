@@ -3,10 +3,6 @@ body {
   font-family: sans-serif;
 }
 
-h2 {
-  margin-top: 150px;
-}
-
 #myFigure {
   color: white;
   width: 600px;
@@ -14,6 +10,10 @@ h2 {
   border: thin solid black;
   margin: 0 auto;
   background: #57142c;
+}
+
+.start-button {
+  margin-top: 150px;
 }
 
 .pacman {
@@ -27,4 +27,12 @@ h2 {
 
 .false-start {
   margin-top: 150px;
+}
+
+.average {
+  position: absolute;
+  margin-top: -235px;
+  margin-left: 30px;
+  text-align: left;
+  white-space: pre-line;
 }
