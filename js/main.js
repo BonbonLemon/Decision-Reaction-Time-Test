@@ -1,6 +1,9 @@
-$(function () {
-  var canvas = document.getElementById("myCanvas");
-  var ctx = canvas.getContext("2d");
+var View = require('./view');
+var Game = require('./game');
 
-  console.log("hi");
+$(function () {
+  // var canvas = document.getElementById("myCanvas");
+  // var ctx = canvas.getContext("2d");
+  var game = new Game();
+  new View(game);
 });

@@ -42,14 +42,60 @@
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var View = __webpack_require__(2);
+	var Game = __webpack_require__(1);
+	
+	$(function () {
+	  // var canvas = document.getElementById("myCanvas");
+	  // var ctx = canvas.getContext("2d");
+	  var game = new Game();
+	  new View(game);
+	});
+
+
+/***/ },
+/* 1 */
 /***/ function(module, exports) {
 
-	$(function () {
-	  var canvas = document.getElementById("myCanvas");
-	  var ctx = canvas.getContext("2d");
+	function Game () {
 	
-	  console.log("hi");
-	});
+	}
+	
+	module.exports = Game;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports) {
+
+	var View = function (game) {
+	  this.game = game;
+	
+	  this.bindStart();
+	}
+	
+	View.prototype.bindStart = function () {
+	  window.onkeydown = function (e) {
+	    if (e.keyCode == 32) {
+	      $('h2').remove();
+	      this.start();
+	    }
+	  }.bind(this);
+	};
+	
+	View.prototype.start = function () {
+	  var time = 1000 + Math.random() * 3000;
+	
+	  setTimeout(function () {
+	    var $pacman = $('<img>');
+	    $pacman.attr('src', './images/pacman.png')
+	    $('body').append($pacman);
+	  }, time);
+	};
+	
+	module.exports = View;
 
 
 /***/ }

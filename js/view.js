@@ -1,16 +1,26 @@
-var View = function () {
-  this.bindEvents();
+var View = function (game) {
+  this.game = game;
+
+  this.bindStart();
 }
 
-View.prototype.bindEvents = function () {
+View.prototype.bindStart = function () {
   window.onkeydown = function (e) {
-    if ((e.keyCode == 32 || e.keyCode == 37 || e.keyCode == 38 ||
-          e.keyCode == 39 || e.keyCode == 40) && e.target == document.body)
-      {
-        e.preventDefault();
-        console.log("hey");
-      }
-  }
+    if (e.keyCode == 32) {
+      $('h2').remove();
+      this.start();
+    }
+  }.bind(this);
+};
+
+View.prototype.start = function () {
+  var time = 1000 + Math.random() * 3000;
+
+  setTimeout(function () {
+    var $pacman = $('<img>');
+    $pacman.attr('src', './images/pacman.png')
+    $('body').append($pacman);
+  }, time);
 };
 
 module.exports = View;
