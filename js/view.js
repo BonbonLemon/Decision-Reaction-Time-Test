@@ -18,8 +18,13 @@ View.prototype.start = function () {
 
   setTimeout(function () {
     var $pacman = $('<img>');
-    $pacman.attr('src', './images/pacman.png')
-    $('body').append($pacman);
+    $pacman.attr('src', './images/pacman.png');
+
+    var num_rotations = Math.floor(Math.random() * 4);
+    $pacman.css('transform', 'rotate(' + num_rotations * 90 + 'deg)')
+
+    $('figure').append($pacman);
+    console.log(num_rotations);
   }, time);
 };
 
